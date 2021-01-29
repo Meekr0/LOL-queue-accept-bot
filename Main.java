@@ -29,7 +29,7 @@ public class Main {
         myFrame.add(confirm_label);
         confirm_label.setVerticalAlignment(SwingConstants.NORTH);
         confirm_label.setHorizontalAlignment(SwingConstants.CENTER);
-
+        confirm_label.setText("<html>Put your cursor in the upper left corner of your LOL Client</html>");
 
         //JLabel label_time = new JLabel("0");
         //myFrame.add(label_time);
@@ -42,7 +42,7 @@ public class Main {
             //tylko pierwsza iteracja
             if(!topLeftCornerSelected) {
 
-                //wait(3000);
+                wait(5000);
 
                 Point p1 = MouseInfo.getPointerInfo().getLocation();
 
