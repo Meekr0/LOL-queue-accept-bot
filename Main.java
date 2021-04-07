@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.InputEvent;
-import java.awt.event.WindowEvent;
 
 public class Main {
 
@@ -22,27 +21,29 @@ public class Main {
 
         MyFrame myFrame = new MyFrame();
         myFrame.setLocation((int)(0.4 * screen_x), (int)(0.5 * screen_y));
-        myFrame.setSize((int)(0.2 * screen_x), (int)(0.2 * screen_y));
+        myFrame.setSize((int)(0.3 * screen_x), (int)(0.3 * screen_y));
         myFrame.getContentPane().setBackground(Color.black);
+        myFrame.setAlwaysOnTop(true);
+
 
         JLabel confirm_label = new JLabel("111");
         myFrame.add(confirm_label);
         confirm_label.setVerticalAlignment(SwingConstants.NORTH);
         confirm_label.setHorizontalAlignment(SwingConstants.CENTER);
         confirm_label.setText("<html>Put your cursor in the upper left corner of your LOL Client</html>");
+        confirm_label.setForeground(Color.white);
 
-        //JLabel label_time = new JLabel("0");
-        //myFrame.add(label_time);
-        //label_time.setHorizontalAlignment(SwingConstants.CENTER);
-
+        JLabel time_label = new JLabel("0");
+        myFrame.add(time_label);
+        time_label.setHorizontalAlignment(SwingConstants.CENTER);
+        time_label.setForeground(Color.white);
+        time_label.setText("<html>0</html>");
 
         while(true) {
 
-
             //tylko pierwsza iteracja
-            if(!topLeftCornerSelected) {
+            if(!topLeftCornerSelected && sek == 5) {
 
-                wait(5000);
 
                 Point p1 = MouseInfo.getPointerInfo().getLocation();
 
@@ -52,8 +53,7 @@ public class Main {
                 System.out.println("x: " + x + ", y: " + y);
 
                 topLeftCornerSelected = true;
-
-
+                myFrame.setAlwaysOnTop(false);
 
                 confirm_label.setText("<html>Position saved. You can move your cursor now." +
                                       " Do not move this window.</html>");
@@ -66,18 +66,19 @@ public class Main {
             sek+=1;
             System.out.println(sek + " seconds have passed.");
 
-            //label_time.setText(sek + " seconds have passed.");
+            time_label.setText("<html>"+ sek + " seconds have passed.</html>");
 
             if(!checkPixel(x, y, screen_x, screen_y)) {
 
                 System.out.println("Click");
-                //System.exit(0);
-                break;
+
+                wait(1500);
+
+                myFrame.setLocation((int)(0.4 * screen_x), (int)(0.5 * screen_y));
+                myFrame.setAlwaysOnTop(true);
+                myFrame.setAlwaysOnTop(false);
 
             }
-
-
-
 
         }
 
@@ -110,12 +111,12 @@ public class Main {
                 System.out.println("NIE JEST CZARNE");
                 click(x_click, y_click); //437, 203 - play button
 
-                //319, 159 - l. g. róg - 320, 160
-                //~930, 760 - accept
-                //x: +770, y: +600
-                //x: +640? połowa x clienta
-                //x: 1050/2 = 525
-                //y: 1/5 launchera, 1/5 * 720, y + 4/5 * 720 = y+
+                /*319, 159 - l. g. róg - 320, 160
+                ~930, 760 - accept
+                x: +770, y: +600
+                x: +640? połowa x clienta
+                x: 1050/2 = 525
+                y: 1/5 launchera, 1/5 * 720, y + 4/5 * 720 = y + 576 */
 
                 return false;
 
@@ -175,6 +176,7 @@ public class Main {
         bot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
 
     }
+
 
 }
 
